@@ -1,0 +1,30 @@
+<script id="teams-template" type="text/x-handlebars-template">
+  <ul>
+  {{#each this}}
+    <li>{{name}}</li>
+  {{/each}}
+  </ul>
+</script>
+
+<h1>Teams</h1>
+
+<div id="container"></div>
+
+<script>
+  $(function() {
+
+    // READ IT: http://handlebarsjs.com/
+
+    $.ajax("/api/v1/teams")
+      .then(function(data) {
+
+        var source   = $("#teams-template").html();
+        var template = Handlebars.compile(source);
+
+        var html = template(data);
+
+        $('#container').html(html);
+      });
+
+  });
+</script>
